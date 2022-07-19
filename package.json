@@ -1,0 +1,17 @@
+{
+  "name": "@azurity/pure-nerd-font",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "azurity <784227594@qq.com>",
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/azurity/pure-nerd-font.git"
+  },
+  "homepage": "http://github.com/azurity/pure-nerd-font#readme",
+  "license": "MIT"
+}

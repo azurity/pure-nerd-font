@@ -3,3 +3,8 @@
     font-family: PureNerdFont;
     src: url(./PureNerdFont.woff2);
 }
+
+@font-face {
+    font-family: 'Pure Nerd Font';
+    src: url(./PureNerdFont.woff2);
+}

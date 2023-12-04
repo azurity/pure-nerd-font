@@ -9,6 +9,7 @@ jobs:
     env:
       nerd_version: ''
     steps:
+      - uses: actions/checkout@v3
       - name: get nerd version
         run: echo "nerd_version=`gh release view -R ryanoasis/nerd-fonts --json tagName --jq '.tagName'`" >> "$GITHUB_ENV"
         env:

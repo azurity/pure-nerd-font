@@ -11,6 +11,8 @@ jobs:
     steps:
       - name: get nerd version
         run: echo "nerd_version=`gh release view -R ryanoasis/nerd-fonts --json tagName --jq '.tagName'`" >> "$GITHUB_ENV"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: check published
         if: ${{ github.event_name != 'workflow_dispatch' }}
         run: if [ $nerd_version == `cat nerd-version.txt` ]; then echo "nerd_version=''" >> "$GITHUB_ENV"; fi

@@ -10,6 +10,6 @@ jobs:
       nerd_version: ''
     steps:
       - name: get nerd version
-        run: echo "nerd_version={gh release view -R ryanoasis/nerd-fonts --json tagName --jq '.tagName'}" >> "$GITHUB_ENV"
+        run: echo "nerd_version=${gh release view -R ryanoasis/nerd-fonts --json tagName --jq '.tagName'}" >> "$GITHUB_ENV"
       - name: debug
         run: echo $nerd_version

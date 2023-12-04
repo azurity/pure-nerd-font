@@ -10,6 +10,38 @@ jobs:
       nerd_version: ''
     steps:
       - name: get nerd version
-        run: echo "nerd_version=${gh release view -R ryanoasis/nerd-fonts --json tagName --jq '.tagName'}" >> "$GITHUB_ENV"
-      - name: debug
-        run: echo $nerd_version
+        run: echo "nerd_version=`gh release view -R ryanoasis/nerd-fonts --json tagName --jq '.tagName'`" >> "$GITHUB_ENV"
+      - name: check published
+        if: ${{ github.event_name != 'workflow_dispatch' }}
+        run: if [ $nerd_version == `cat nerd-version.txt` ]; then echo "nerd_version=''" >> "$GITHUB_ENV"; fi
+      - name: Setup Node.js environment
+        if: ${{ env.nerd_version != '' }}
+        uses: actions/setup-node@v4
+        with:
+          # Version Spec of the version to use. Examples: 12.x, 10.15.1, >=10.15.0.
+          node-version: ">=16.14.0"
+          registry-url: 'https://registry.npmjs.org'
+          cache: 'npm'
+      - name: Setup fontforge
+        if: ${{ env.nerd_version != '' }}
+        run: sudo apt install -y fontforge
+      - name: build & publish
+        if: ${{ env.nerd_version != '' }}
+        run: |
+          wget "https://github.com/ryanoasis/nerd-fonts/releases/download/$nerd_version/FontPatcher.zip"
+          unzip -d font-patcher FontPatcher.zip
+          cd font-patcher
+          fontforge --script ./font-patcher --complete ../src/lite.ttf
+          fontforge -script ./clear.pe PureNerdFont-Regular.ttf
+          cp PureNerdFont-Regular.woff2 ../PureNerdFont.woff2
+          cd ..
+          echo $nerd_version > nerd-version.txt
+          git add PureNerdFont.woff2 nerd-version.txt
+          git commit -m "update nerd-font to $nerd_version"
+          git push -u origin HEAD
+          rm -rf font-pacher
+          rm FontPatcher.zip
+          npm version patch
+          npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

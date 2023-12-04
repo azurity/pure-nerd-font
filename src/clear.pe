@@ -1,0 +1,5 @@
+Open($1)
+SelectMore(0u21)
+DetachAndRemoveGlyphs()
+Generate($1:r + ".woff2")
+Quit(0)

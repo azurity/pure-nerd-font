@@ -38,16 +38,15 @@ jobs:
           cp PureNerdFont-Regular.woff2 ../PureNerdFont.woff2
           cd ..
           echo $nerd_version > nerd-version.txt
-          git config --global user.name '$git_name'
+          git config --global user.name 'azurity'
           git config --global user.email '$git_email'
           git add PureNerdFont.woff2 nerd-version.txt
-          git commit -m "update nerd-font to $nerd_version"
+          git commit -m "[auto commit] update nerd-font to $nerd_version"
           git push -u origin HEAD
-          rm -rf font-pacher
+          rm -rf font-patcher
           rm FontPatcher.zip
           npm version patch
           npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-          git_name: ${{ secrets.git_name }}
           git_email: ${{ secrets.git_email }}

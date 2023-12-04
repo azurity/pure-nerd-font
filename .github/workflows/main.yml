@@ -23,7 +23,6 @@ jobs:
           # Version Spec of the version to use. Examples: 12.x, 10.15.1, >=10.15.0.
           node-version: ">=16.14.0"
           registry-url: 'https://registry.npmjs.org'
-          cache: 'npm'
       - name: Setup fontforge
         if: ${{ env.nerd_version != '' }}
         run: sudo apt install -y fontforge

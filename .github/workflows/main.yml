@@ -34,7 +34,7 @@ jobs:
           unzip -d font-patcher FontPatcher.zip
           cd font-patcher
           fontforge --script ./font-patcher --complete ../src/lite.ttf
-          fontforge -script ./clear.pe PureNerdFont-Regular.ttf
+          fontforge -script ../src/clear.pe PureNerdFont-Regular.ttf
           cp PureNerdFont-Regular.woff2 ../PureNerdFont.woff2
           cd ..
           echo $nerd_version > nerd-version.txt
